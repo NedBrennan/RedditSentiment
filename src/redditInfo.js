@@ -8,9 +8,10 @@ export async function scrapeSubreddit(ticker) {
     refreshToken: '611187528180-nTdczFkmidkKlsL0gE0dPYOngsTFuw',
   });
   
-  const subreddit = await r.getSubreddit('wallstreetbets').search({query: ticker})
+  let subreddit = await r.getSubreddit('wallstreetbets').search({query: ticker, sort: 'comments'})
+  let subredditComments = subreddit.map(post => post.id)
 
-  return subreddit
+  return subredditComments
 }
 
 export default scrapeSubreddit
