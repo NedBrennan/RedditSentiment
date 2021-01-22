@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Box, Button, FormGroup, Input, InputLabel, Grid } from '@material-ui/core';
+import { Box, Button, FormGroup, Input, InputLabel, Grid, CircularProgress } from '@material-ui/core';
 import reddit from '../redditInfo'
 import Post from './Post'
 
@@ -9,14 +9,16 @@ class tickerInput extends Component {
 
     this.state = {
       ticker: '',
+      loading: false,
       posts: null
     };
   }
 
   handleSubmit = async (event) => {
     event.preventDefault()
+    this.setState({loading: true})
     let ticker = await reddit(this.state.ticker)
-    this.setState({posts: ticker})
+    this.setState({loading: false, posts: ticker})
   }
 
   handleChange = (event) => {
@@ -42,7 +44,7 @@ class tickerInput extends Component {
           <Grid container spacing={3} justify="center">
             {this.state.posts ? this.state.posts.map(post => {
               return <Post post={post} />
-            }) : 'choose a ticker symbol' }
+            }) : this.state.loading ? <CircularProgress disableShrink /> : 'choose a ticker symbol' }
           </Grid>
       </Box>
     );
