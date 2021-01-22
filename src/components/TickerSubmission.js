@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Box, Button, FormGroup, Input, InputLabel } from '@material-ui/core';
+import { Box, Button, FormGroup, Input, InputLabel, Grid } from '@material-ui/core';
 import reddit from '../redditInfo'
+import Post from './Post'
 
 class tickerInput extends Component {
   constructor(props) {
@@ -8,13 +9,14 @@ class tickerInput extends Component {
 
     this.state = {
       ticker: '',
+      posts: null
     };
   }
 
   handleSubmit = async (event) => {
     event.preventDefault()
     let ticker = await reddit(this.state.ticker)
-    console.log(ticker)
+    this.setState({posts: ticker})
   }
 
   handleChange = (event) => {
@@ -26,14 +28,22 @@ class tickerInput extends Component {
 
   render() {
     return (
-      <Box width="600px" justifySelf="center">
+      <Box display='relative' justifyContent='center'>
+
+      <Box display='relative' width="600px" justifySelf="center">
         <FormGroup>
           <InputLabel htmlFor='ticker'>Choose a ticker symbol to analyze</InputLabel>
           <Input name='ticker' onChange={this.handleChange} />
           <Button type="submit" variant="contained" onClick={this.handleSubmit}>
             Analyze
           </Button>
-        </FormGroup>
+            </FormGroup>
+          </Box>
+          <Grid container spacing={3} justify="center">
+            {this.state.posts ? this.state.posts.map(post => {
+              return <Post post={post} />
+            }) : 'choose a ticker symbol' }
+          </Grid>
       </Box>
     );
   }

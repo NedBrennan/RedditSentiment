@@ -17,10 +17,14 @@ export async function scrapeSubreddit(ticker) {
 //
   //subredditComments = getCommentTree(subredditComments)
 
+  let commentTrees = []
+
   for (let i = 0; i < subredditComments.length; i++) {
-  let commentTree = await r.getSubmission(subredditComments[0]).expandReplies({limit: 1})
+  let commentTree = await r.getSubmission(subredditComments[i]).expandReplies({limit: 1})
+  commentTrees.push(commentTree)
   }
-  return commentTree
+
+  return commentTrees
 }
 
 export default scrapeSubreddit
