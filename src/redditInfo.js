@@ -10,8 +10,17 @@ export async function scrapeSubreddit(ticker) {
   
   let subreddit = await r.getSubreddit('wallstreetbets').search({query: ticker, sort: 'comments'})
   let subredditComments = subreddit.map(post => post.id)
+  
+  //const getCommentTree = async (comments) => {
+  //  return Promise.all(comments.map(async commentId => (await r.getSubmission(commentId)).expandReplies()))
+  //}
+//
+  //subredditComments = getCommentTree(subredditComments)
 
-  return subredditComments
+  for (let i = 0; i < subredditComments.length; i++) {
+  let commentTree = await r.getSubmission(subredditComments[0]).expandReplies({limit: 1})
+  }
+  return commentTree
 }
 
 export default scrapeSubreddit
