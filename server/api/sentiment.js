@@ -1,16 +1,19 @@
 var https = require('follow-redirects').https;
 var fs = require('fs');
 
+let key = process.env.API_KEY
+
 var options = {
   'method': 'POST',
   'hostname': 'api.meaningcloud.com',
-  'path': '/sentiment-2.1?key=myKey&lang=en&txt=I%20love%20it&model=WSBTest',
+  'path': `/sentiment-2.1?key=3f5fd990377dad84d44391fb9c8f7937&lang=en&txt=I%20love%20it&model=WSBTest`,
   'headers': {
   },
   'maxRedirects': 20
 };
 
-var req = https.request(options, function (res) {
+const analyzeSentiment = (textString) => {
+var req = https.request(textString, function (res) {
   var chunks = [];
 
   res.on("data", function (chunk) {
@@ -26,7 +29,7 @@ var req = https.request(options, function (res) {
     console.error(error);
   });
 });
-
 req.end();
+}
 
-console.log(req)
+module.exports = { analyzeSentiment }

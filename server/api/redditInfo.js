@@ -1,6 +1,6 @@
-import snoowrap from 'snoowrap';
+const snoowrap = require('snoowrap');
 
-export async function scrapeSubreddit(ticker) {
+async function scrapeSubreddit() {
   const r = new snoowrap({
     userAgent: 'someRandomString',
     clientId: 'IHeLMCc-X2WBKg',
@@ -8,13 +8,13 @@ export async function scrapeSubreddit(ticker) {
     refreshToken: '611187528180-nTdczFkmidkKlsL0gE0dPYOngsTFuw',
   });
   
-  let subreddit = await r.getSubreddit('wallstreetbets').search({query: ticker, sort: 'comments'})
+  let subreddit = await r.getSubreddit('wallstreetbets').search({query: 'PLTR', sort: 'comments'})
   let subredditComments = subreddit.map(post => post.id)
   
   //const getCommentTree = async (comments) => {
   //  return Promise.all(comments.map(async commentId => (await r.getSubmission(commentId)).expandReplies()))
   //}
-//
+//  
   //subredditComments = getCommentTree(subredditComments)
 
   let commentTrees = []
@@ -24,7 +24,7 @@ export async function scrapeSubreddit(ticker) {
   commentTrees.push(commentTree)
   }
 
-  return commentTrees
+  console.log(commentTrees)
 }
 
-export default scrapeSubreddit
+scrapeSubreddit()
