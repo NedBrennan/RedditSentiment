@@ -13,7 +13,7 @@ const post = (props) => {
       >
             <Card>
                 <CardContent>
-                    <Typography>
+                    <Typography variant='h4'>
                         {props.post.title}    
                     </Typography>   
                     <Typography>

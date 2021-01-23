@@ -14,6 +14,7 @@ export const setComments = (posts) => ({
 export const fetchComments = (tickerSymbol) => {
     return async (dispatch) => {
       const posts = await axios.get(`${apiPort}/api/comments/?ticker=${tickerSymbol}`);
+      console.log(posts)
       dispatch(setComments(posts.data));
     };
   };
