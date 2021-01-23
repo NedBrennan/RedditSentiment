@@ -1,5 +1,11 @@
 const router = require('express').Router();
 
+console.log('hello')
+
+router.get('/', (req, res, next) => {
+    res.send('hello')
+})
+
 router.use('/comments', require('./comments'));
 
 router.use((req, res, next) => {

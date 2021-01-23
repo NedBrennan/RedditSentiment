@@ -3,11 +3,11 @@ const { scrapeSubreddit } = require('./redditInfo')
 
 router.get('/', async(req, res, next) => {
     try {
-        console.log('backend route hit | body -> ', req.body)
-        const comments = await scrapeSubreddit(req.body.ticker)
-        console.log(comments)
-        res.send(comments)     
+        console.log('backend route hit | body -> ', req.query)
+        res.send('hello from comment section')     
     } catch (error) {
         next(error)
     }
 })
+
+module.exports = router;

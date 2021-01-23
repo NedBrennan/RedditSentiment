@@ -4,6 +4,8 @@ const initialState = [];
 
 const POST_SENTIMENT = 'POST_SENTIMENT';
 
+const apiPort = 'http://localhost:4500'
+
 export const setComments = (post) => ({
     type: POST_SENTIMENT,
     post: post,
@@ -11,7 +13,7 @@ export const setComments = (post) => ({
 
 export const fetchComments = (tickerSymbol) => {
     return async (dispatch) => {
-      const comments = await axios.get('/api/comments', tickerSymbol);
+      const comments = await axios.get(`${apiPort}/api/comments/?ticker=${tickerSymbol}`);
       dispatch(setComments(comments.data));
     };
   };
