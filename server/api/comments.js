@@ -5,10 +5,10 @@ const { analyzeSentiment } = require('./sentiment')
 router.get('/', async (req, res, next) => {
     try {
         const comments = await scrapeSubreddit(req.query.ticker)
-        const html = comments[0].title.split(' ').join('%20')
+        const html = comments[0].selftext.split(' ').join('%20')
         const sentiment = await analyzeSentiment(html)
-        console.log(sentiment)
-        res.json(sentiment)
+        console.log('sentiment returned --> ', sentiment)
+        res.send(comments)
     } catch (error) {
         next(error)
     }

@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const volleyball = require('volleyball');
 const cors = require('cors')
+require('dotenv').config()
 
 const app = express();
 
