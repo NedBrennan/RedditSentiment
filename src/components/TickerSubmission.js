@@ -18,8 +18,8 @@ class tickerInput extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
     this.setState({loading: true})
-    let ticker = await this.props.fetchComments(this.state.ticker)
-    this.setState({loading: false, posts: ticker})
+    await this.props.fetchComments(this.state.ticker)
+    this.setState({loading: false})
   }
 
   handleChange = (event) => {
@@ -43,7 +43,7 @@ class tickerInput extends Component {
             </FormGroup>
           </Box>
           <Grid container spacing={3} justify="center">
-            {this.state.posts ? this.state.posts.map(post => {
+            {this.props.posts.length > 0 ? this.props.posts.map(post => {
               return <Post post={post} />
             }) : this.state.loading ? <CircularProgress disableShrink /> : 'choose a ticker symbol' }
           </Grid>
@@ -53,7 +53,7 @@ class tickerInput extends Component {
 }
 
 const mapState = (state) => ({
-  comments: state.comments,
+  posts: state.posts,
 });
 
 const mapDispatch = (dispatch) => ({

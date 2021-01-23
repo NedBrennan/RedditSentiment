@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const { scrapeSubreddit } = require('./redditInfo')
 
-router.get('/', async(req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
-        console.log('backend route hit | body -> ', req.query)
-        res.send('hello from comment section')     
+        const comments = await scrapeSubreddit(req.query.ticker)
+        res.send(comments)     
     } catch (error) {
         next(error)
     }
