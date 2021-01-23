@@ -27,4 +27,4 @@ async function scrapeSubreddit() {
   console.log(commentTrees)
 }
 
-scrapeSubreddit()
+module.exports = { scrapeSubreddit }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Box, Button, FormGroup, Input, InputLabel, Grid, CircularProgress } from '@material-ui/core';
-import reddit from '../redditInfo'
 import Post from './Post'
+import { connect } from 'react-redux'
+import { fetchComments } from '../store/redditPost'
 
 class tickerInput extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class tickerInput extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
     this.setState({loading: true})
-    let ticker = await reddit(this.state.ticker)
+    let ticker = await this.props.fetchComments(this.state.ticker)
     this.setState({loading: false, posts: ticker})
   }
 
@@ -51,4 +52,12 @@ class tickerInput extends Component {
   }
 }
 
-export default tickerInput
+const mapState = (state) => ({
+  comments: state.comments,
+});
+
+const mapDispatch = (dispatch) => ({
+  fetchComments: (ticker) => dispatch(fetchComments(ticker))
+});
+
+export default connect(mapState, mapDispatch)(tickerInput);
