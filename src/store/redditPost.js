@@ -11,9 +11,9 @@ export const setComments = (posts) => ({
     posts: posts,
   });
 
-export const fetchComments = (tickerSymbol) => {
+export const fetchComments = (subReddit, tickerSymbol) => {
     return async (dispatch) => {
-      const posts = await axios.get(`${apiPort}/api/comments/?ticker=${tickerSymbol}`);
+      const posts = await axios.get(`${apiPort}/api/comments/?ticker=${tickerSymbol}&subReddit=${subReddit}`);
       console.log(posts)
       dispatch(setComments(posts.data));
     };
@@ -22,7 +22,7 @@ export const fetchComments = (tickerSymbol) => {
 export default function robotsReducer(state = initialState, action) {
   switch (action.type) {
     case POST_SENTIMENT:
-      state = action.posts;
+      state = [action.posts];
       return state;
     default:
       return state;

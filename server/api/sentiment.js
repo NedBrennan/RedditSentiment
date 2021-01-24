@@ -11,8 +11,8 @@ const analyzeSentiment = async (textString) => {
       'maxRedirects': 20
     };
 
-    const response = await superagent.get(`api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&lang=en&txt=${textString}&${process.env.MODEL_DEFINITION}`).query(options)
-    console.log(JSON.parse(response.text))
+    const response = await superagent.get(`api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&lang=en&txt=${textString}`).query(options)
+    return JSON.parse(response.text)
   } catch (error) {
     
   }

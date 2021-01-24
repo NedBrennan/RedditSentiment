@@ -10,6 +10,7 @@ class tickerInput extends Component {
 
     this.state = {
       ticker: '',
+      subReddit: '',
       loading: false,
       posts: null
     };
@@ -18,13 +19,13 @@ class tickerInput extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
     this.setState({loading: true})
-    await this.props.fetchComments(this.state.ticker)
+    await this.props.fetchComments('wallstreetbets ', 'AAPL')
     this.setState({loading: false})
   }
 
   handleChange = (event) => {
     this.setState({
-      ticker: event.target.value,
+      [event.target.name]: event.target.value,
     });
     console.log(this.state.ticker)
   }
@@ -35,6 +36,8 @@ class tickerInput extends Component {
 
       <Box display='relative' width="600px" justifySelf="center">
         <FormGroup>
+          <InputLabel htmlFor='subReddit'>Choose a SubReddit</InputLabel>          
+          <Input name='subReddit' onChange={this.handleChange} />
           <InputLabel htmlFor='ticker'>Choose a ticker symbol to analyze</InputLabel>
           <Input name='ticker' onChange={this.handleChange} />
           <Button type="submit" variant="contained" onClick={this.handleSubmit}>
@@ -57,7 +60,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchComments: (ticker) => dispatch(fetchComments(ticker))
+  fetchComments: (subReddit, ticker) => dispatch(fetchComments(subReddit, ticker))
 });
 
 export default connect(mapState, mapDispatch)(tickerInput);

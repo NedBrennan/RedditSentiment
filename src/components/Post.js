@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, Grid, Typography } from '@material-ui/core'
+import { Accordion, AccordionDetails, AccordionSummary, Card, CardContent, Grid, Typography } from '@material-ui/core'
 
 const post = (props) => {
     return (
@@ -7,20 +7,21 @@ const post = (props) => {
         key={props.post.id}
         container
         item
-        xs={3}
+        xs={12}
         spacing={1}
-        justify="center"
       >
-            <Card>
-                <CardContent>
-                    <Typography variant='h4'>
+            <Accordion>
+                <AccordionSummary>
+                    <Typography variant='h6'>
                         {props.post.title}    
                     </Typography>   
+                </AccordionSummary>
+                <AccordionDetails>
                     <Typography>
                         {props.post.selftext}    
                     </Typography>  
-                </CardContent>
-            </Card>
+                </AccordionDetails>
+            </Accordion>
         </Grid>
     )
 }
