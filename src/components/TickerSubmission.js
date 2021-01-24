@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { Box, Button, FormGroup, Input, InputLabel, Grid, CircularProgress } from '@material-ui/core';
-import Post from './Post'
-import { connect } from 'react-redux'
-import { fetchComments } from '../store/redditPost'
+import {
+  Box,
+  Button,
+  FormGroup,
+  Input,
+  InputLabel,
+  Grid,
+  CircularProgress,
+} from '@material-ui/core';
+import Post from './Post';
+import { connect } from 'react-redux';
+import { fetchComments } from '../store/redditPost';
+import Sentiment from './SentimentReport';
 
 class tickerInput extends Component {
   constructor(props) {
@@ -12,44 +21,60 @@ class tickerInput extends Component {
       ticker: '',
       subReddit: '',
       loading: false,
-      posts: null
+      posts: null,
     };
   }
 
   handleSubmit = async (event) => {
-    event.preventDefault()
-    this.setState({loading: true})
-    await this.props.fetchComments('wallstreetbets ', 'AAPL')
-    this.setState({loading: false})
-  }
+    event.preventDefault();
+    this.setState({ loading: true });
+    await this.props.fetchComments('wallstreetbets ', 'AAPL');
+    this.setState({ loading: false });
+  };
 
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    console.log(this.state.ticker)
-  }
+    console.log(this.state.ticker);
+  };
 
   render() {
     return (
-      <Box display='relative' justifyContent='center'>
-
-      <Box display='relative' width="600px" justifySelf="center">
-        <FormGroup>
-          <InputLabel htmlFor='subReddit'>Choose a SubReddit</InputLabel>          
-          <Input name='subReddit' onChange={this.handleChange} />
-          <InputLabel htmlFor='ticker'>Choose a ticker symbol to analyze</InputLabel>
-          <Input name='ticker' onChange={this.handleChange} />
-          <Button type="submit" variant="contained" onClick={this.handleSubmit}>
-            Analyze
-          </Button>
-            </FormGroup>
-          </Box>
-          <Grid container spacing={3} justify="center">
-            {this.props.posts.length > 0 ? this.props.posts.map(post => {
-              return <Post post={post} />
-            }) : this.state.loading ? <CircularProgress disableShrink /> : 'choose a ticker symbol' }
-          </Grid>
+      <Box display="relative" justifyContent="center">
+        <Box display="relative" width="600px" justifySelf="center">
+          <FormGroup>
+            <InputLabel htmlFor="subReddit">Choose a SubReddit</InputLabel>
+            <Input name="subReddit" onChange={this.handleChange} />
+            <InputLabel htmlFor="ticker">
+              Choose a ticker symbol to analyze
+            </InputLabel>
+            <Input name="ticker" onChange={this.handleChange} />
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={this.handleSubmit}
+            >
+              Analyze
+            </Button>
+          </FormGroup>
+        </Box>
+        <Grid container spacing={3} justify="center">
+          {this.props.posts.length > 0 ? (
+            this.props.posts.map((post) => {
+              return (
+                <React.Fragment>
+                  <Post post={post} />
+                  <Sentiment Sentiment={post} />
+                </React.Fragment>
+              );
+            })
+          ) : this.state.loading ? (
+            <CircularProgress disableShrink />
+          ) : (
+            'choose a ticker symbol'
+          )}
+        </Grid>
       </Box>
     );
   }
@@ -60,7 +85,8 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  fetchComments: (subReddit, ticker) => dispatch(fetchComments(subReddit, ticker))
+  fetchComments: (subReddit, ticker) =>
+    dispatch(fetchComments(subReddit, ticker)),
 });
 
 export default connect(mapState, mapDispatch)(tickerInput);
