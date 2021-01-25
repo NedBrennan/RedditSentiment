@@ -7,10 +7,10 @@ const post = (props) => {
         key={props.post.id}
         container
         item
-        xs={9}
+        xs={8}
         spacing={1}
       >
-            <Accordion>
+            <Accordion >
                 <AccordionSummary>
                     <Typography variant='h6'>
                         {props.post.title}    

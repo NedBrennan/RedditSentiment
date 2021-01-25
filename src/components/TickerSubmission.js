@@ -41,8 +41,8 @@ class tickerInput extends Component {
 
   render() {
     return (
-      <Box display="relative" justifyContent="center">
-        <Box display="relative" width="600px" justifySelf="center">
+      <Box display="flex" justifycontent="center" flexDirection='column'>
+        <Box display="relative" width="600px">
           <FormGroup>
             <InputLabel htmlFor="subReddit">Choose a SubReddit</InputLabel>
             <Input name="subReddit" onChange={this.handleChange} />
@@ -59,7 +59,7 @@ class tickerInput extends Component {
             </Button>
           </FormGroup>
         </Box>
-        <Grid container spacing={3} justify="left">
+        <Grid container spacing={3}>
           {this.props.posts.length > 0 ? (
             this.props.posts.map((post) => {
               return (

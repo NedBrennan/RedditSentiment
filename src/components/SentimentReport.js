@@ -1,5 +1,5 @@
 import React from 'react'
-import { Accordion, AccordionSummary, Grid, Typography } from '@material-ui/core'
+import { Box, Card, CardContent, Grid, Typography } from '@material-ui/core'
 
 const Sentiment = (props) => {
     return (
@@ -10,13 +10,16 @@ const Sentiment = (props) => {
         xs={3}
         spacing={1}
       >
-          <Accordion>
-              <AccordionSummary>
+          <Card>
+              <Box width='100px'>
+
+              </Box>
+              <CardContent display='flex' justifycontent='center'>
                   <Typography variant='h5'>
                       {props.Sentiment.sentiment}
                   </Typography>
-              </AccordionSummary>
-          </Accordion>
+              </CardContent>
+          </Card>
           </Grid>
     )
 }
