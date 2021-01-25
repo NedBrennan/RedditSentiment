@@ -22,7 +22,7 @@ export const fetchComments = (subReddit, tickerSymbol) => {
 export default function robotsReducer(state = initialState, action) {
   switch (action.type) {
     case POST_SENTIMENT:
-      state = [action.posts];
+      state = action.posts;
       return state;
     default:
       return state;

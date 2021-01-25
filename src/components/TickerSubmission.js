@@ -28,7 +28,7 @@ class tickerInput extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     this.setState({ loading: true });
-    await this.props.fetchComments('wallstreetbets ', 'AAPL');
+    await this.props.fetchComments(this.state.subReddit, this.state.ticker);
     this.setState({ loading: false });
   };
 
@@ -59,7 +59,7 @@ class tickerInput extends Component {
             </Button>
           </FormGroup>
         </Box>
-        <Grid container spacing={3} justify="center">
+        <Grid container spacing={3} justify="left">
           {this.props.posts.length > 0 ? (
             this.props.posts.map((post) => {
               return (

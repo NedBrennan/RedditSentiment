@@ -19,7 +19,7 @@ async function scrapeSubreddit(subReddit, tickerSymbol) {
 
   let commentTrees = []
 
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < subredditComments.length; i++) {
   let commentTree = await r.getSubmission(subredditComments[i]).expandReplies({limit: 1})
   commentTrees.push(commentTree)
   }

@@ -7,7 +7,7 @@ const post = (props) => {
         key={props.post.id}
         container
         item
-        xs={12}
+        xs={9}
         spacing={1}
       >
             <Accordion>
