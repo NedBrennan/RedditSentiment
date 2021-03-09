@@ -1,3 +1,3 @@
 # RedditSentiment
 
-A web based sentiment analyzer for Reddit
+👋 Thank you for your interest in this project!
